@@ -2,6 +2,7 @@ package com.skyapi.weatherapicommon;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ public class RealtimeWeather {
     @Column(name = "location_code", nullable = false)
     @JsonProperty("location_code")
     private String locationCode;
-    
+
     private int temperature;
 
     private int humidity;
@@ -42,6 +43,7 @@ public class RealtimeWeather {
     private String status;
 
     @JsonProperty("last_updated")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:SS'Z'")
     private Date lastUpdated;
 
     @OneToOne
@@ -49,8 +51,8 @@ public class RealtimeWeather {
     @MapsId
     private Location location;
 
-    public void setLocation(Location location){
+    public void setLocation(Location location) {
         this.setLocationCode(location.getCode());
-        this.location=location;
+        this.location = location;
     }
 }

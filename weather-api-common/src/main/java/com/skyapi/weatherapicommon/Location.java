@@ -63,9 +63,8 @@ public class Location {
 
     @OneToOne(mappedBy = "location", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    @JsonIgnore 
+    @JsonIgnore
     private RealtimeWeather realtimeWeather;
-
 
     public Location(String cityName, String regionName, String countryName, String countryCode) {
         this.cityName = cityName;
@@ -73,6 +72,10 @@ public class Location {
         this.countryName = countryName;
         this.countryCode = countryCode;
     }
-    
+
+    @Override
+    public String toString() {
+        return cityName + ", " + (regionName != null ? regionName : "") + ", " + countryName;
+    }
 
 }

@@ -2,6 +2,7 @@ package com.skyapi.weatherapiservice.features.realtime;
 
 import static org.hamcrest.Matchers.is;
 
+import java.time.Instant;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -81,10 +82,12 @@ class RealtimeWeatherApiConntrollerTest {
         Mockito.when(geoService.getLocationFromIP(Mockito.anyString())).thenReturn(location);
         Mockito.when(realtimeService.getByLocation(location)).thenReturn(realtimeWeather);
 
+        String expectedLocation = location.getCityName() + ", " + location.getRegionName() + ", " + location.getCountryName();
+
         mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.location.code", is("NYC_USA")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.location", is(expectedLocation)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.humidity", is(32)))
                 .andDo(MockMvcResultHandlers.print());
     }

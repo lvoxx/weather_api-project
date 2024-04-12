@@ -2,6 +2,7 @@ package com.skyapi.weatherapiservice.features.realtime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Instant;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
