@@ -38,6 +38,7 @@ public class RealtimeWeather {
     @JsonProperty("wind_speed")
     private int windSpeed;
 
+    @Column(length = 50)
     private String status;
 
     @JsonProperty("last_updated")
