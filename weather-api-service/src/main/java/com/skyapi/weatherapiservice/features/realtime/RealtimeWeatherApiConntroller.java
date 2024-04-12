@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skyapi.weatherapicommon.Location;
 import com.skyapi.weatherapicommon.RealtimeWeather;
+import com.skyapi.weatherapiservice.dto.RealtimeWeatherDTO;
 import com.skyapi.weatherapiservice.features.geo_location.GeoLocationService;
 import com.skyapi.weatherapiservice.helper.error.GeoLocationException;
 import com.skyapi.weatherapiservice.helper.error.LocationNotFoundException;
@@ -33,14 +34,15 @@ public class RealtimeWeatherApiConntroller {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public ResponseEntity<RealtimeWeather> getRealtimeWeatherByIPAddress(HttpServletRequest request) {
+    public ResponseEntity<RealtimeWeatherDTO> getRealtimeWeatherByIPAddress(HttpServletRequest request) {
         String ipAddress = CommonUtility.getIPAddress(request);
 
         try {
             Location locationFromIp = geoService.getLocationFromIP(ipAddress);
             RealtimeWeather realtimeWeather = realtimeService.getByLocation(locationFromIp);
 
-            return ResponseEntity.ok(realtimeWeather);
+            RealtimeWeatherDTO dto = modelMapper.map(realtimeWeather, RealtimeWeatherDTO.class);
+            return ResponseEntity.ok(dto);
         } catch (GeoLocationException ex) {
             log.error(ex.getMessage(), ex);
             return ResponseEntity.badRequest().build();
