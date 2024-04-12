@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.realtime;
+package com.skyapi.weatherapiservice.features.realtime;
 
 import org.springframework.stereotype.Service;
 

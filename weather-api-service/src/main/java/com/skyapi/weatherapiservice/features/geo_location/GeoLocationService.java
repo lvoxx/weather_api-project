@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.geo_location;
+package com.skyapi.weatherapiservice.features.geo_location;
 
 import java.io.IOException;
 

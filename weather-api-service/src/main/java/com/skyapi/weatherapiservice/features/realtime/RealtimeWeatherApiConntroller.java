@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.realtime;
+package com.skyapi.weatherapiservice.features.realtime;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skyapi.weatherapicommon.Location;
 import com.skyapi.weatherapicommon.RealtimeWeather;
-import com.skyapi.weatherapiservice.geo_location.GeoLocationService;
+import com.skyapi.weatherapiservice.features.geo_location.GeoLocationService;
 import com.skyapi.weatherapiservice.helper.error.GeoLocationException;
 import com.skyapi.weatherapiservice.helper.error.LocationNotFoundException;
 import com.skyapi.weatherapiservice.helper.utils.CommonUtility;

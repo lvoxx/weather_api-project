@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.location;
+package com.skyapi.weatherapiservice.features.location;
 
 import java.util.List;
 

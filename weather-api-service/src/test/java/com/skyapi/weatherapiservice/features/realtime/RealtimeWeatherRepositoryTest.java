@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.realtime;
+package com.skyapi.weatherapiservice.features.realtime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

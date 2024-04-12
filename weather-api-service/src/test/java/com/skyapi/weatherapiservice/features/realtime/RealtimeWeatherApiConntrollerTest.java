@@ -1,4 +1,4 @@
-package com.skyapi.weatherapiservice.realtime;
+package com.skyapi.weatherapiservice.features.realtime;
 
 import static org.hamcrest.Matchers.is;
 
@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skyapi.weatherapicommon.Location;
 import com.skyapi.weatherapicommon.RealtimeWeather;
-import com.skyapi.weatherapiservice.geo_location.GeoLocationService;
+import com.skyapi.weatherapiservice.features.geo_location.GeoLocationService;
 import com.skyapi.weatherapiservice.helper.error.GeoLocationException;
 import com.skyapi.weatherapiservice.helper.error.LocationNotFoundException;
 
