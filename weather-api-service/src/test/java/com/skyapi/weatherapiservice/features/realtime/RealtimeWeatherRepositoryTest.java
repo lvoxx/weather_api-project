@@ -2,7 +2,6 @@ package com.skyapi.weatherapiservice.features.realtime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Instant;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -40,9 +39,8 @@ class RealtimeWeatherRepositoryTest {
         assertThat(updatedWeather.getHumidity()).isEqualTo(32);
     }
 
-
     @Test
-    void testFindByCountryCodeAdCityNameNotFound(){
+    void testFindByCountryCodeAndCityNameNotFound() {
         String countryCode = "JP";
         String cityName = "Tokyo";
 
@@ -52,7 +50,7 @@ class RealtimeWeatherRepositoryTest {
     }
 
     @Test
-    void testFindByCountryCodeAdCityNameFound(){
+    void testFindByCountryCodeAndCityNameFound() {
         String countryCode = "US";
         String cityName = "New York City";
 
@@ -60,5 +58,33 @@ class RealtimeWeatherRepositoryTest {
 
         assertThat(realtimeWeather).isNotNull();
         assertThat(realtimeWeather.getLocation().getCityName()).isEqualTo(cityName);
+    }
+
+    @Test
+    void testFindByLocationCodeNotFound() {
+        String locationCode = "ABC";
+
+        RealtimeWeather realtimeWeather = repos.findByLocationCode(locationCode);
+
+        assertThat(realtimeWeather).isNull();
+    }
+
+    @Test
+    void testFindByLocationCodeTrashedNotFound() {
+        String locationCode = "NYC_USA";
+
+        RealtimeWeather realtimeWeather = repos.findByLocationCode(locationCode);
+
+        assertThat(realtimeWeather).isNull();
+    }
+
+    @Test
+    void testFindByLocationCodeFound() {
+        String locationCode = "DELHI_IN";
+
+        RealtimeWeather realtimeWeather = repos.findByLocationCode(locationCode);
+
+        assertThat(realtimeWeather).isNotNull();
+        assertThat(realtimeWeather.getLocation().getCode()).isEqualTo(locationCode);
     }
 }

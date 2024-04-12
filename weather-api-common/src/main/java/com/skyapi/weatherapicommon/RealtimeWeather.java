@@ -43,7 +43,7 @@ public class RealtimeWeather {
     private String status;
 
     @JsonProperty("last_updated")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:SS'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date lastUpdated;
 
     @OneToOne

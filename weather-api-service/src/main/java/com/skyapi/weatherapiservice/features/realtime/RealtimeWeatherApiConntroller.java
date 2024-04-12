@@ -3,6 +3,7 @@ package com.skyapi.weatherapiservice.features.realtime;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,14 +19,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/v1/realtime")
 @RequiredArgsConstructor
 @Slf4j
 public class RealtimeWeatherApiConntroller {
-    
+
     @NonNull
     private GeoLocationService geoService;
     @NonNull
@@ -46,11 +47,25 @@ public class RealtimeWeatherApiConntroller {
         } catch (GeoLocationException ex) {
             log.error(ex.getMessage(), ex);
             return ResponseEntity.badRequest().build();
-        } catch (LocationNotFoundException ex){
+        } catch (LocationNotFoundException ex) {
             log.error(ex.getMessage(), ex);
             return ResponseEntity.notFound().build();
         }
-        
+
     }
-    
+
+    @GetMapping("/{locationCode}")
+    public ResponseEntity<RealtimeWeatherDTO> getRealtimeWeatherByLocationCode(
+            @PathVariable(name = "locationCode") String locationCode) {
+        try {
+            RealtimeWeather realtimeWeather = realtimeService.getByLocationCode(locationCode);
+            RealtimeWeatherDTO dto = modelMapper.map(realtimeWeather, RealtimeWeatherDTO.class);
+
+            return ResponseEntity.ok(dto);
+        } catch (LocationNotFoundException ex) {
+            log.error(ex.getMessage(), ex);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
