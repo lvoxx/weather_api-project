@@ -19,7 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/v1/realtime")
@@ -62,6 +63,19 @@ public class RealtimeWeatherApiConntroller {
             RealtimeWeatherDTO dto = modelMapper.map(realtimeWeather, RealtimeWeatherDTO.class);
 
             return ResponseEntity.ok(dto);
+        } catch (LocationNotFoundException ex) {
+            log.error(ex.getMessage(), ex);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{locationCode}")
+    public ResponseEntity<RealtimeWeatherDTO> updateRealtimeWeather(@PathVariable(name = "locationCode") String locationCode,
+            @RequestBody RealtimeWeather realtimeWeather) {
+        try {
+            RealtimeWeather updatedRealtimeWeather = realtimeService.update(locationCode, realtimeWeather);
+
+            return ResponseEntity.ok(CommonUtility.entity2DTO(RealtimeWeatherDTO.class, updatedRealtimeWeather, modelMapper));
         } catch (LocationNotFoundException ex) {
             log.error(ex.getMessage(), ex);
             return ResponseEntity.notFound().build();

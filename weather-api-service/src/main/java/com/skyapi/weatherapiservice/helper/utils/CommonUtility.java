@@ -1,5 +1,7 @@
 package com.skyapi.weatherapiservice.helper.utils;
 
+import org.modelmapper.ModelMapper;
+
 import com.skyapi.weatherapiservice.helper.string.CommonHeader;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +23,10 @@ public abstract class CommonUtility {
         log.info("Client's IP Address: " + ip);
 
         return ip;
+    }
+
+    public static <D, E, M extends ModelMapper> D entity2DTO(Class<D> dto, E entity, M modelMapper) {
+        return modelMapper.map(entity, dto);
     }
 
 }
